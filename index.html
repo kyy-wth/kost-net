@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kost-net.com | Networking & CCTV</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-teal: #174A5A;
+            --accent-gold: #D4A44A;
+            --btn-green: #5B8C85;
+            --bg-white: #FFFFFF;
+            --bg-card: #EAEAEA;
+            --border-gray: #D8D8D8;
+            --nav-height: 80px;
+            --max-width: 1100px;
+        }
+
+        html { scroll-behavior: smooth; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-white);
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container { width: min(92%, var(--max-width)); margin: 0 auto; }
+
+        /* NAVBAR */
+        header {
+            background-color: var(--primary-teal);
+            height: var(--nav-height);
+            display: flex;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1001;
+        }
+
+        .nav-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            position: relative;
+        }
+
+        .nav-group { display: flex; list-style: none; gap: 20px; }
+        .nav-group a {
+            color: white;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+
+        .logo-area {
+            position: absolute;
+            left: 50%; top: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .logo-area img { height: 45px; width: auto; display: block; }
+
+        .mobile-toggle { display: none; color: white; font-size: 24px; cursor: pointer; z-index: 1100; }
+        /* BURGER MENU */
+        .mobile-menu-overlay {
+            position: fixed;
+            top: 0; left: -100%;
+            width: 85%; height: 100%;
+            background-color: var(--primary-teal);
+            z-index: 1050;
+            transition: 0.4s ease;
+            padding: 80px 30px;
+            overflow-y: auto;
+        }
+        .mobile-menu-overlay.active { left: 0; }
+        .menu-label {
+            color: var(--accent-gold);
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-top: 25px;
+            display: block;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .mobile-menu-overlay ul { list-style: none; }
+        .mobile-menu-overlay ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            padding: 10px 0;
+            display: block;
+        }
+        .menu-backdrop {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5); z-index: 1040; display: none;
+        }
+        .menu-backdrop.active { display: block; }
+
+        /* HERO */
+        .hero { padding: 60px 0; text-align: center; }
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(34px, 5vw, 64px);
+            color: var(--primary-teal);
+            line-height: 1.1; margin-bottom: 20px;
+        }
+        .trending-pill {
+            display: inline-flex; align-items: center; gap: 10px;
+            background-color: var(--primary-teal); color: white;
+            padding: 12px 35px; border-radius: 999px; font-weight: 500; margin-bottom: 25px;
+        }
+        .hero-desc { font-size: 17px; color: #555; }
+        .hero-desc .accent { color: var(--accent-gold); font-weight: 600; }
+        /* SECTIONS & GRID */
+        .brand-section { padding-top: 60px; scroll-margin-top: 100px; }
+        .brand-logo-header { margin-bottom: 25px; }
+        .brand-logo-header img { height: 120px; width: auto; display: block; }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-gray);
+            border-radius: 12px;
+            padding: 18px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.12);
+        }
+        .card-model { font-size: 12px; font-weight: 600; margin-bottom: 10px; color: #444; }
+        .card-img { height: 160px; display: flex; align-items: center; justify-content: center; margin-bottom: 12px; }
+        .card-img img { max-width: 100%; max-height: 100%; object-fit: contain; }
+        .card-price { font-size: 17px; font-weight: 700; color: var(--primary-teal); margin-top: auto; margin-bottom: 12px; }
+        .shopee-btn { 
+            background: var(--btn-green); color: white; text-align: center; 
+            padding: 10px; border-radius: 8px; text-decoration: none; font-size: 13px; font-weight: 500;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+        }
+        .shopee-btn:active { transform: scale(0.97); }
+        .badge {
+            position: absolute; top: 12px; right: 12px; background: var(--accent-gold);
+            color: white; padding: 4px 8px; border-radius: 6px; font-size: 9px; font-weight: 800;
+        }
+
+        /* FOOTER */
+        footer {
+            background-color: var(--primary-teal);
+            color: white;
+            padding: 60px 0 40px 0;
+            text-align: center;
+        }
+        footer h3 { font-size: 26px; font-weight: 600; margin-bottom: 20px; }
+        .footer-links { font-size: 16px; margin-bottom: 30px; color: rgba(255,255,255,0.8); }
+        .footer-links a { color: inherit; text-decoration: none; }
+        .footer-socials { display: flex; justify-content: center; gap: 30px; margin-bottom: 40px; }
+        .footer-socials a { color: white; font-size: 28px; }
+        .footer-line {
+            border-top: 1px solid rgba(255,255,255,0.15);
+            width: min(80%, 600px);
+            margin: 0 auto 30px auto;
+        }
+        .copyright { font-size: 14px; opacity: 0.7; }
+
+        /* RESPONSIVE */
+        @media (max-width: 1024px) { .product-grid { grid-template-columns: repeat(3, 1fr); } }
+        @media (max-width: 768px) {
+            .nav-group { display: none; }
+            .mobile-toggle { display: block; }
+            .product-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+            .logo-area img { height: 38px; }
+        }
+        
+        /* MODAL */
+        .modal {
+            display: none; position: fixed; z-index: 2000; left: 0; top: 0; 
+            width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.6); backdrop-filter: blur(3px);
+        }
+        .modal-content {
+            background-color: #ffffff; margin: 10% auto; padding: 24px; border-radius: 8px;
+            width: 90%; max-width: 600px; color: #333333; box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            position: relative; max-height: 80vh; overflow-y: auto;
+        }
+        .close-btn { position: absolute; right: 16px; top: 12px; font-size: 24px; font-weight: bold; cursor: pointer; color: #888888; }
+        .close-btn:hover { color: #000000; }
+        .modal-content h2 { margin-top: 0; margin-bottom: 16px; border-bottom: 2px solid #eeeeee; padding-bottom: 8px; color: #1a1a1a; }
+        .modal-content h4 { margin-bottom: 4px; color: #2c3e50; }
+        .modal-content p { margin-top: 0; margin-bottom: 12px; line-height: 1.5; font-size: 0.95rem; }
+        
+        .spec-btn {
+    flex: 1;
+    background: #e2e8f0;
+    color: #334155;
+    border: none;
+    border-radius: 8px;
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 8px 0;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.spec-btn:hover {
+    background: #cbd5e1;
+}
+
+.spec-btn:active {
+    transform: scale(0.97);
+}
+
+@keyframes modalFadeIn {
+    from { 
+        opacity: 0; 
+        transform: translateY(-10px); 
+    }
+    to { 
+        opacity: 1; 
+        transform: translateY(0); 
+    }
+}
+
+.modal-content {
+    animation: modalFadeIn 0.25s ease-out;
+}
+
+
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container nav-wrapper">
+            <div class="mobile-toggle" id="menuBtn"><i class="fas fa-bars"></i></div>
+            <ul class="nav-group">
+                <li><a href="#">Home</a></li>
+                <li><a href="#router-tplink">Routers</a></li>
+                <li><a href="#switch-tplink">Switches</a></li>
+            </ul>
+            <div class="logo-area">
+                <img src="logo/kostnet.png" alt="LOGO KOST-NET">
+            </div>
+            <ul class="nav-group">
+               <li><a href="https://api.whatsapp.com/send?phone=6285101665043&text=Halo%20Kost-net%20saya%20mau%20tanya%20produk" target="_blank">Contact</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- BURGER MENU OVERLAY -->
+    <div class="menu-backdrop" id="backdrop"></div>
+    <nav class="mobile-menu-overlay" id="mobileMenu">
+        <ul>
+            <li><a href="#" onclick="closeMenu()">Home</a></li>
+            
+            <span class="menu-label">Kategori Router</span>
+            <li><a href="#router-tplink" onclick="closeMenu()">Router & AP TP-Link</a></li>
+            <li><a href="#router-ruijie" onclick="closeMenu()">Router & AP Ruijie | Reyee</a></li>
+            <li><a href="#router-tenda" onclick="closeMenu()">Router & AP Tenda</a></li>
+            
+            <span class="menu-label">Kategori Switch</span>
+            <li><a href="#switch-tplink" onclick="closeMenu()">Switch TP-Link</a></li>
+            <li><a href="#switch-ruijie" onclick="closeMenu()">Switch Ruijie | Reyee</a></li>
+            <li><a href="#switch-tenda" onclick="closeMenu()">Switch Tenda</a></li> 
+         
+            <span class="menu-label">Hubungi Kami</span>
+            <li><a href="https://api.whatsapp.com/send?phone=6285101665043&text=Halo%20Kost-net%20saya%20mau%20tanya%20produk" target="_blank">Contact WA</a></li>
+        </ul>
+    </nav>
+
+    <main class="container">
+        <section class="hero">
+            <h1>Pilihan Terbaik<br>hari ini</h1>
+            <div class="trending-pill">🔥 Trending/Hot Sale 🔥</div>
+            <p class="hero-desc">Amankan Unitmu sekarang | Barang <span class="accent">ON Fire 🔥</span></p>
+        </section>
+        
+        <!-- BANNER ILUSTRASI CARA PESAN -->
+        <div style="background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); border: 1px solid #bae6fd; border-radius: 12px; padding: 16px; margin: 20px 15px; display: flex; align-items: center; gap: 15px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);">
+            <div style="flex-shrink: 0; background: #ffffff; padding: 10px; border-radius: 50%; box-shadow: 0 2px 4px rgba(0,0,0,0.08); display: flex; align-items: center; justify-content: center;">
+                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="9" cy="21" r="1"></circle>
+                    <circle cx="20" cy="21" r="1"></circle>
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                    <path d="M12 10l3 3m0-3l-3 3" stroke="#22c55e" stroke-width="2.5"></path>
+                </svg>
+            </div>
+            <div style="font-family: sans-serif;">
+                <h4 style="margin: 0 0 4px 0; color: #0369a1; font-size: 14px; font-weight: 700; display: flex; align-items: center; gap: 5px;">
+                    🛒 Cara Pemesanan Mudah
+                </h4>
+                <p style="margin: 0; color: #334155; font-size: 12px; line-height: 1.4;">
+                    Pilih produk di katalog, lalu klik <b>"Pesan Sekarang"</b> atau cek spesifikasi dengan tombol <b>"Spec"</b>.
+                </p>
+            </div>
+        </div>
+
+        <!-- SEARCH BAR -->
+        <div style="margin: 20px 0 30px 0; display: flex; justify-content: center;">
+            <div style="position: relative; width: 100%; max-width: 500px;">
+                <input type="text" id="searchInput" onkeyup="filterProducts()" placeholder="🔍 Cari tipe router / switch (misal: C54, WR840N)..." style="width: 100%; padding: 12px 20px; border-radius: 25px; border: 1px solid var(--border-gray); font-family: 'Poppins', sans-serif; font-size: 14px; outline: none; box-shadow: 0 2px 8px rgba(0,0,0,0.05); transition: border-color 0.3s ease;">
+            </div>
+        </div>
+        <!-- ROUTERS -->
+        <div id="router-tplink" class="brand-section">
+            <div class="brand-logo-header"><img src="logo/tplink.png" alt="LOGO TP-LINK"></div>
+            <div id="grid-router-tp" class="product-grid"></div>
+        </div>
+        <div id="router-ruijie" class="brand-section">
+            <div class="brand-logo-header"><img src="logo/ruijie.png" alt="LOGO RUIJIE"></div>
+            <div id="grid-router-rj" class="product-grid"></div>
+        </div>
+        <div id="router-tenda" class="brand-section">
+            <div class="brand-logo-header"><img src="logo/tenda.png" alt="LOGO TENDA"></div>
+            <div id="grid-router-tenda" class="product-grid"></div>
+        </div>
+
+        <!-- SWITCHES -->
+        <div id="switch-tplink" class="brand-section">
+            <div class="brand-logo-header"><img src="logo/tplink.png" alt="LOGO TP-LINK SWITCH"></div>
+            <div id="grid-switch-tp" class="product-grid"></div>
+        </div>
+        <div id="switch-ruijie" class="brand-section">
+            <div class="brand-logo-header"><img src="logo/ruijie.png" alt="LOGO RUIJIE SWITCH"></div>
+            <div id="grid-switch-rj" class="product-grid"></div>
+        </div>
+        <div id="switch-tenda" class="brand-section">
+            <div class="brand-logo-header"><img src="logo/tenda.png" alt="LOGO TENDA SWITCH"></div>
+            <div id="grid-switch-tenda" class="product-grid"></div>
+        </div>
+        <div id="notFoundMessage" style="display: none; text-align: center; padding: 40px 20px; color: #64748b;">
+    <i class="fas fa-search" style="font-size: 32px; margin-bottom: 10px; color: #94a3b8;"></i>
+    <p style="font-size: 15px; font-weight: 500;">Produk yang kamu cari tidak ditemukan.</p>
+</div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <h3>Quick Links</h3>
+            <div class="footer-links">
+                <a href="#" onclick="openModal('terms'); return false;">Terms</a> • 
+                <a href="#" onclick="openModal('privacy'); return false;">Privacy</a> • 
+                <a href="#" onclick="openModal('faqs'); return false;">FAQs</a>
+            </div>
+            
+            <div class="footer-socials">
+                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook"></i></a>
+                <a href="https://instagram.com/kostnet_solution" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+                <a href="https://wa.me/6285101665043?text=Halo%20Kost-net,%20saya%20mau%20tanya%20produk" target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp"></i></a>
+            </div>
+
+            <div class="footer-line"></div>
+            <p class="copyright">&copy; 2026 Kost-net solution . All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- MODAL POP-UP -->
+    <div id="infoModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <div id="modalBody"></div>
+        </div>
+    </div>
+    
+    <!-- FLOATING WHATSAPP BUTTON -->
+    <a href="https://wa.me/6285101665043?text=Halo%20Kost-net,%20saya%20mau%20tanya%20produk" target="_blank" rel="noopener noreferrer" style="position: fixed; bottom: 25px; right: 25px; background-color: #25d366; color: white; width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; box-shadow: 0 4px 12px rgba(0,0,0,0.25); z-index: 9999; text-decoration: none; transition: transform 0.2s ease;">
+      <i class="fab fa-whatsapp"></i>
+    </a>
+    <script>
+        // NAV JS
+        const menuBtn = document.getElementById('menuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const backdrop = document.getElementById('backdrop');
+
+        menuBtn.onclick = () => {
+            mobileMenu.classList.toggle('active');
+            backdrop.classList.toggle('active');
+            menuBtn.querySelector('i').classList.toggle('fa-bars');
+            menuBtn.querySelector('i').classList.toggle('fa-times');
+        };
+
+        function closeMenu() {
+            mobileMenu.classList.remove('active');
+            backdrop.classList.remove('active');
+            menuBtn.querySelector('i').classList.add('fa-bars');
+            menuBtn.querySelector('i').classList.remove('fa-times');
+        }
+        backdrop.onclick = closeMenu;
+
+        const nomorWA = "6285101665043";
+
+        const products = [
+        // ROUTER TP-LINK
+            { target: 'grid-router-tp', model: 'TL-WR840N', price: '', badge: 'BEST SELLER', img: 'tplink/tl-wr840n.png', desc: '• Kecepatan hingga 300Mbps<br>• 2 Antena eksternal 5dBi<br>• Mode Router, AP, Range Extender, WISP', url: 'https://www.tp-link.com/id/home-networking/wifi-router/tl-wr840n/#specifications' },
+            { target: 'grid-router-tp', model: 'TL-WR820N', price: '', badge: '', img: 'tplink/tl-wr820n.png', desc: '• Kecepatan Wi-Fi 300Mbps<br>• 2 Antena 5dBi<br>• Fitur IPTV & Parental Controls', url: 'https://www.tp-link.com/id/home-networking/wifi-router/tl-wr820n/#specifications' },
+            { target: 'grid-router-tp', model: 'Archer C54', price: '', badge: 'DUAL BAND', img: 'tplink/c54.png', desc: '• AC1200 Dual Band (867Mbps 5GHz + 300Mbps 2.4GHz)<br>• 4 Antena presisi<br>• Mode 3-in-1 (Router, AP, Extender)', url: 'https://www.tp-link.com/id/home-networking/wifi-router/archer-c54/#specifications' },
+            { target: 'grid-router-tp', model: 'Archer AX23', price: '', badge: 'WIFI 6', img: 'tplink/ax23.png', desc: '• Wi-Fi 6 Super-Fast Dual Band AC1800<br>• Cakupan luas dengan 4 Antena + Beamforming<br>• Support OFDMA & MU-MIMO', url: 'https://www.tp-link.com/id/home-networking/wifi-router/archer-ax23/#specifications' },
+            { target: 'grid-router-tp', model: 'Archer C80', price: '', badge: '', img: 'tplink/c80.png', desc: '• AC1900 High-Performance Wi-Fi<br>• 3x3 MU-MIMO Technology<br>• Full Gigabit Ports', url: 'https://www.tp-link.com/id/home-networking/wifi-router/archer-c80/#specifications' },
+            { target: 'grid-router-tp', model: 'EAP110', price: '', badge: 'INDOOR AP', img: 'tplink/eap110.png', desc: '• N300 Ceiling Mount Access Point<br>• Passive PoE Support<br>• Omada SDN Centralized Management', url: 'https://www.tp-link.com/id/business-networking/omada-sdn-access-point/eap110/#specifications' },
+            { target: 'grid-router-tp', model: 'EAP110-Outdoor', price: '', badge: 'OUTDOOR AP', img: 'tplink/eap110-outdoor.png', desc: '• Outdoor Wireless AP N300<br>• Tahan cuaca IP65<br>• Antena omni-directional high-gain', url: 'https://www.tp-link.com/id/business-networking/omada-sdn-access-point/eap110-outdoor/#specifications' },
+            { target: 'grid-router-tp', model: 'CPE210', price: '', badge: 'OUTDOOR PHAROS', img: 'tplink/cpe210.png', desc: '• 2.4GHz 300Mbps High Power Outdoor CPE<br>• Antena MIMO 9dBi directional<br>• Jangkauan jarak jauh 5km+', url: 'https://www.tp-link.com/id/business-networking/outdoor-radio/cpe210/#specifications' },
+
+        // ROUTER RUIJIE
+            { target: 'grid-router-rj', model: 'RG-EW1200', price: '', badge: '', img: 'ruijie/rg-ew1200.png', desc: '• Dual Band AC1200 Smart Router<br>• Support Ruijie Reyee Mesh<br>• Kontrol via aplikasi Reyee App', url: 'https://www.ruijienetworks.com/products/reyee-mesh-wifi/reyee-router/RG-EW1200' },
+            { target: 'grid-router-rj', model: 'RG-EW1300G', price: '', badge: 'BEST SELLER', img: 'ruijie/rg-ew1300g.png', desc: '• AC1300 Dual Band Full Gigabit Router<br>• 5 Antena High-gain<br>• Reyee Mesh One-click connection', url: 'https://www.ruijienetworks.com/products/reyee-mesh-wifi/reyee-router/ew1300g' },
+            { target: 'grid-router-rj', model: 'RG-EW1200G PRO', price: '', badge: 'GIGABIT', img: 'ruijie/rg-ew1200g pro.png', desc: '• Gigabit Mesh Router AC1200<br>• High-power FEM amplifier<br>• Sanggup hingga 64 user', url: 'https://www.ruijienetworks.com/products/reyee-mesh-wifi/reyee-router/RG-EW1200G-PRO' },
+            { target: 'grid-router-rj', model: 'RG-EW300 PRO', price: '', badge: '', img: 'ruijie/rg-ew300 pro.png', desc: '• 300Mbps Wireless N Router<br>• 4 Antena Omni-directional 5dBi<br>• Support WISP & AP Mode', url: 'https://www.ruijienetworks.com/products/reyee-mesh-wifi/reyee-router/RG-EW300-PRO' },
+            { target: 'grid-router-rj', model: 'RG-EW300N', price: '', badge: '', img: 'ruijie/rg-ew300n.png', desc: '• 300Mbps Compact Router/Repeater<br>• Sinyal stabil untuk tempat kecil<br>• Setup praktis via Cloud', url: 'https://www.ruijienetworks.com/products/reyee-mesh-wifi/reyee-router/RG-EW300N' },
+            { target: 'grid-router-rj', model: 'RG-EG105GW(T)', price: '', badge: 'VPN ROUTER', img: 'ruijie/rg-eg105gw(t).png', desc: '• All-in-One Enterprise VPN Router + Wi-Fi<br>• Gigabit Ports & Dual-WAN Support<br>• Ruijie Cloud Free License', url: 'https://www.ruijienetworks.com/products/reyee-router/reyee-eg-series-router/RG-EG105GW-T' },
+            { target: 'grid-router-rj', model: 'RG-RAP2260(G)', price: '', badge: 'WI-FI 6 AP', img: 'ruijie/rg-rap2260(g).png', desc: '• AX1800 Wi-Fi 6 Ceiling Access Point<br>• Port Gigabit + PoE Support<br>• High Density user capacity', url: 'https://www.ruijienetworks.com/products/reyee-wireless/reyee-ap/rg-rap2260g' },
+            { target: 'grid-router-rj', model: 'RG-RAP72', price: '', badge: 'CEILING AP', img: 'ruijie/rg-rap72.png', desc: '• Wall-plate / Ceiling Wi-Fi 6 AP<br>• Desain estetik ultra-slim<br>• Centralized Cloud Management', url: 'https://www.ruijienetworks.com/products/reyee-wireless/reyee-ap/RG-RAP72' },
+            { target: 'grid-router-rj', model: 'RG-RAP2200(E)', price: '', badge: 'CEILING AP', img: 'ruijie/rg-rap2200(e).png', desc: '• AC1267 Ceiling Mount Access Point<br>• Dual LAN Ports (Gigabit)<br>• Seamless Roaming support', url: 'https://www.ruijienetworks.com/products/reyee-wireless/reyee-ap/RG-RAP2200E' },
+            { target: 'grid-router-rj', model: 'RG-RAP52-OD', price: '', badge: 'OUTDOOR AP', img: 'ruijie/rg-rap52-od.png', desc: '• AC1300 Outdoor Omni Access Point<br>• Proteksi cuaca ekstrim IP65<br>• Jangkauan antena luas', url: 'https://www.ruijienetworks.com/products/reyee-wireless/reyee-ap/RG-RAP52-OD' },
+        // ROUTER TENDA
+            { target: 'grid-router-tenda', model: 'N301', price: '', badge: 'BEST SELLER', img: 'tenda/n301.png', desc: '• 300Mbps Wireless N Router<br>• 2 Antena 5dBi<br>• Mudah diatur dalam hitungan menit', url: 'https://www.tendacn.com/product/specification/N301.html' },
+            { target: 'grid-router-tenda', model: 'F3', price: '', badge: '', img: 'tenda/f3.png', desc: '• 300Mbps Router untuk hunian sedang<br>• 3 Antena luar 5dBi<br>• Chipset Broadcom yang stabil', url: 'https://www.tendacn.com/product/specification/F3.html' },
+            { target: 'grid-router-tenda', model: 'F6', price: '', badge: '4 ANTENA', img: 'tenda/f6.png', desc: '• 300Mbps Wireless Router<br>• 4 Antena high-gain 5dBi<br>• Fitur Power Saving', url: 'https://www.tendacn.com/product/specification/F6.html' },
+            { target: 'grid-router-tenda', model: 'O3', price: '', badge: 'OUTDOOR', img: 'tenda/o3.png', desc: '• 5km Outdoor Point to Point CPE<br>• 2.4GHz 150Mbps<br>• Antena directional 12dBi', url: 'https://www.tendacn.com/product/specification/O3.html' },
+            { target: 'grid-router-tenda', model: 'A9', price: '', badge: 'EXTENDER', img: 'tenda/a9.png', desc: '• 300Mbps Universal Wi-Fi Range Extender<br>• Smart Signal LED indicator<br>• 2 Antena Eksternal', url: 'https://www.tendacn.com/product/specification/A9.html' },
+            { target: 'grid-router-tenda', model: 'HG3', price: '', badge: 'XPON ONT', img: 'tenda/hg3.png', desc: '• N300 XPON Optical Network Terminal<br>• Support EPON & GPON Mode<br>• High compatibility dengan OLT', url: 'https://www.tendacn.com/product/specification/HG3.html' },
+            { target: 'grid-router-tenda', model: 'AC6', price: '', badge: 'DUAL BAND', img: 'tenda/ac6.png', desc: '• Smart Dual-band WiFi Router AC1200<br>• 4 Antena 5dBi<br>• Fitur Beamforming+ & MU-MIMO', url: 'https://www.tendacn.com/product/specification/AC6.html' },
+
+        // SWITCH TP-LINK
+            { target: 'grid-switch-tp', model: 'LS1005G (5 Port)', price: '', badge: 'GIGABIT', img: 'tplink/ls1005g.png', desc: '• 5-Port 10/100/1000Mbps RJ45<br>• Desktop Switch Plastic Casing<br>• Plug and Play', url: 'https://www.tp-link.com/id/home-networking/soho-switch/ls1005g/#specifications' },
+            { target: 'grid-switch-tp', model: 'TL-SF1005D (5 Port)', price: '', badge: 'BEST SELLER', img: 'tplink/tl-sf1005d.png', desc: '• 5-Port 10/100Mbps Desktop Switch<br>• Green TP-Link Technology<br>• Desain ringkas dan hemat daya', url: 'https://www.tp-link.com/id/home-networking/soho-switch/tl-sf1005d/#specifications' },
+            { target: 'grid-switch-tp', model: 'TL-SG1005D (5 Port)', price: '', badge: 'GIGABIT', img: 'tplink/tl-sg1005d.png', desc: '• 5-Port Gigabit Desktop Switch<br>• Transfer data kapasitas besar<br>• Hemat energi hingga 80%', url: 'https://www.tp-link.com/id/home-networking/soho-switch/tl-sg1005d/#specifications' },
+            { target: 'grid-switch-tp', model: 'TL-SF1008D (8 Port)', price: '', badge: 'BEST SELLER', img: 'tplink/tl-sf1008d.png', desc: '• 8-Port 10/100Mbps Desktop Switch<br>• Plastic case, desktop design<br>• Tanpa konfiguasi (Unmanaged)', url: 'https://www.tp-link.com/id/home-networking/soho-switch/tl-sf1008d/#specifications' },
+            { target: 'grid-switch-tp', model: 'TL-SG105 (5 Port)', price: '', badge: 'GIGABIT', img: 'tplink/tl-sg105.png', desc: '• 5-Port Gigabit Desktop Switch Metal<br>• Casing besi tahan lama<br>• Support QoS (802.1p) & IGMP Snooping', url: 'https://www.tp-link.com/id/business-networking/unmanaged-switch/tl-sg105/#specifications' },
+            { target: 'grid-switch-tp', model: 'TL-SG1008D (8 Port)', price: '', badge: 'GIGABIT', img: 'tplink/tl-sg1008d.png', desc: '• 8-Port Gigabit Desktop Switch<br>• Kinerja transfer kencang<br>• Plug and Play', url: 'https://www.tp-link.com/id/home-networking/soho-switch/tl-sg1008d/#specifications' },
+            { target: 'grid-switch-tp', model: 'TL-SF1016D (16 Port)', price: '', badge: '', img: 'tplink/tl-sf1016d.png', desc: '• 16-Port 10/100Mbps Switch<br>• Rackmount / Desktop Mountable<br>• Ideal untuk jaringan kantor', url: 'https://www.tp-link.com/id/business-networking/unmanaged-switch/tl-sf1016d/#specifications' },
+            { target: 'grid-switch-tp', model: 'TL-SF1024D (24 Port)', price: '', badge: '', img: 'tplink/tlsf1024d.png', desc: '• 24-Port 10/100Mbps Switch<br>• Metal Casing Rackmount<br>• Kapasitas switching hingga 4.8Gbps', url: 'https://www.tp-link.com/id/business-networking/unmanaged-switch/tl-sf1024d/#specifications' },
+            { target: 'grid-switch-tp', model: 'TL-SG1016D (16 Port)', price: '', badge: 'GIGABIT', img: 'tplink/tl-sg1016d.png', desc: '• 16-Port Gigabit Unmanaged Switch<br>• Non-blocking architecture<br>• Metal Casing 13 Inch', url: 'https://www.tp-link.com/id/business-networking/unmanaged-switch/tl-sg1016d/#specifications' },
+            { target: 'grid-switch-tp', model: 'TL-SG1024D (24 Port)', price: '', badge: 'GIGABIT', img: 'tplink/tl-sg1024d.png', desc: '• 24-Port Gigabit Desktop/Rackmount Switch<br>• Kapasitas switching 48Gbps<br>• Teknologi hemat energi', url: 'https://www.tp-link.com/id/business-networking/unmanaged-switch/tl-sg1024d/#specifications' },
+        // SWITCH RUIJIE
+            { target: 'grid-switch-rj', model: 'RG-ES05 (5 Port)', price: '', badge: 'BEST SELLER', img: 'ruijie/rg-es05.png', desc: '• 5-Port 10/100Mbps Plastic Desktop Switch<br>• Plug and Play<br>• Kualitas tinggi untuk jaringan kost/rumah', url: 'https://www.ruijienetworks.com/products/reyee-switches/reyee-unmanaged-switches/rg-es05-es08' },
+            { target: 'grid-switch-rj', model: 'RG-ES08 (8 Port)', price: '', badge: 'BEST SELLER', img: 'ruijie/rg-es08.png', desc: '• 8-Port 10/100Mbps Plastic Switch<br>• Desain kompak tanpa bising (fanless)<br>• Hemat listrik', url: 'https://www.ruijienetworks.com/products/reyee-switches/reyee-unmanaged-switches/rg-es05-es08' },
+            { target: 'grid-switch-rj', model: 'RG-ES105GD (5 Port Gigabit)', price: '', badge: 'GIGABIT', img: 'ruijie/rg-es105gd.png', desc: '• 5-Port Gigabit Metal Desktop Switch<br>• Proteksi lonjakan listrik 6kV<br>• Ruijie Cloud App Monitoring', url: 'https://www.ruijienetworks.com/products/reyee-switches/reyee-unmanaged-switches/rg-es100-series' },
+            { target: 'grid-switch-rj', model: 'RG-ES108GD (8 Port Gigabit)', price: '', badge: 'GIGABIT', img: 'ruijie/rg-es108gd.png', desc: '• 8-Port Gigabit Metal Desktop Switch<br>• Casing besi kokoh<br>• Manajemen pintar via Cloud', url: 'https://www.ruijienetworks.com/products/reyee-switches/reyee-unmanaged-switches/rg-es100-series' },
+            { target: 'grid-switch-rj', model: 'RG-ES209GC-P (8 Port PoE)', price: '', badge: 'POE SWITCH', img: 'ruijie/rg-es209gc-p.png', desc: '• 9-Port Gigabit Smart Managed Switch (8 Port PoE+)<br>• PoE Power Budget 120W<br>• Auto IP Camera Recognition', url: 'https://www.ruijienetworks.com/products/reyee-switches/reyee-smart-managed-switches/rg-es200-series' },
+
+        // SWITCH TENDA
+            { target: 'grid-switch-tenda', model: 'S105 (5 Port)', price: '', badge: 'FAST ETHERNET', img: 'tenda/s105.png', desc: '• 5-Port 10/100Mbps Desktop Switch<br>• Desain mini mungil<br>• Plug & Play tanpa konfigurasi', url: 'https://www.tendacn.com/product/specification/S105.html' },
+            { target: 'grid-switch-tenda', model: 'S108 (8 Port)', price: '', badge: 'BEST SELLER', img: 'tenda/s108.png', desc: '• 8-Port 10/100Mbps Switch<br>• Kompatibel dengan semua perangkat jaringan<br>• Wall mount support', url: 'https://www.tendacn.com/product/specification/S108.html' },
+            { target: 'grid-switch-tenda', model: 'SG108 (8 Port Gigabit)', price: '', badge: 'GIGABIT', img: 'tenda/sg108.png', desc: '• 8-Port Gigabit Desktop Switch<br>• Kecepatan transfer hingga 2000Mbps full duplex<br>• Plug and Play', url: 'https://www.tendacn.com/product/specification/SG108.html' },
+            { target: 'grid-switch-tenda', model: 'TEG1008M (8 Port Metal)', price: '', badge: 'GIGABIT METAL', img: 'tenda/teg1008m.png', desc: '• 8-Port Gigabit Desktop Steel Switch<br>• Bodi besi pembuang panas efisien<br>• Proteksi petir 9KV', url: 'https://www.tendacn.com/product/specification/TEG1008M.html' },
+            { target: 'grid-switch-tenda', model: 'TEF1109D (9 Port Fast Ethernet)', price: '', badge: 'DESKTOP SWITCH', img: 'tenda/tef1109d.png', desc: '• 9-Port 10/100Mbps Desktop Switch<br>• 6KV Port Lightning Protection<br>• Mode VLAN support', url: 'https://www.tendacn.com/product/specification/TEF1109D.html' }
+        ];
+        // RENDER GRID
+        products.forEach(p => {
+            const grid = document.getElementById(p.target);
+            if(grid) {
+                const pesanWA = encodeURIComponent(`Halo Kost-net, apakah barang ${p.model} ready?`);
+                const linkWA = `https://wa.me/${nomorWA}?text=${pesanWA}`;
+
+                grid.innerHTML += `
+                    <div class="card">
+                        ${p.badge ? `<div class="badge">${p.badge}</div>` : ''}
+                        <div class="card-model">${p.model}</div>
+                        <div class="card-img" onclick="showProductDetail('${p.model}', '${p.img}', \`${p.desc}\`, '${p.url}')" style="cursor: pointer;">
+                            <img src="${p.img || 'https://via.placeholder.com/200?text=Produk'}" loading="lazy" alt="${p.model}">
+                        </div>
+                        <div class="card-price">${p.price}</div>
+                        <div style="display: flex; gap: 6px; margin-top: auto;">
+                            <button onclick="showProductDetail('${p.model}', '${p.img}', \`${p.desc}\`, '${p.url}')" style="flex: 1; background: #e2e8f0; color: #334155; border: none; border-radius: 8px; font-size: 11px; font-weight: 600; cursor: pointer; padding: 8px 0;">
+                                <i class="fas fa-info-circle"></i> Spec
+                            </button>
+                            <a href="${linkWA}" target="_blank" class="shopee-btn" style="flex: 2; padding: 8px 5px; font-size: 11px; display: flex; align-items: center; justify-content: center;">
+                                Pesan Sekarang 
+                            </a>
+                        </div>
+                    </div>
+                `;
+            }
+        });
+
+        // MODAL DATA
+        const modalData = {
+            terms: `
+                <h2>Syarat & Ketentuan (Terms)</h2>
+                <h4>Garansi Produk</h4>
+                <p>Semua unit bergaransi resmi sesuai dengan kebijakan dari masing-masing merek.</p>
+                <h4>Ketentuan Retur</h4>
+                <p>Klaim garansi atau pengembalian barang wajib melampirkan nota pembelian yang sah.</p>
+                <h4>Pemesanan</h4>
+                <p>Harga dan ketersediaan stok dapat berubah sewaktu-waktu tanpa pemberitahuan terlebih dahulu. Pesanan akan diproses setelah mendapatkan konfirmasi melalui WhatsApp.</p>
+            `,
+            privacy: `
+                <h2>Kebijakan Privasi (Privacy Policy)</h2>
+                <h4>Pengumpulan Data</h4>
+                <p>Data pribadi pembeli (seperti nama, nomor WhatsApp, dan alamat) hanya digunakan untuk keperluan pengiriman barang dan konfirmasi pesanan.</p>
+                <h4>Keamanan Data</h4>
+                <p>Kost-net menjamin kerahasian data Anda dan tidak akan membagikan maupun menjual data pribadi pembeli kepada pihak ketiga.</p>
+            `,
+            faqs: `
+                <h2>Pertanyaan Umum (FAQs)</h2>
+                <h4>Q: Di mana lokasi toko fisik Kost-net?</h4>
+                <p>A: Jl. Nogorojo No. 17, Ambarukmo, Caturtunggal, Kec. Depok, Kabupaten Sleman, Daerah Istimewa Yogyakarta 55281.</p>
+                <div style="width: 100%; height: 250px; margin-top: 10px; border-radius: 8px; overflow: hidden;">
+                    <iframe width="100%" height="100%" style="border:0;" loading="lazy" allowfullscreen src="https://maps.google.com/maps?q=Kost-Net%20Solution,%20Jl.%20Nogorojo%20No.17,%20Ambarukmo,%20Caturtunggal&t=&z=17&ie=UTF8&iwloc=&output=embed"></iframe>
+                </div>
+                <h4 style="margin-top: 16px;">Q: Apakah produk yang dijual original dan bergaransi?</h4>
+                <p>A: Seluruh produk yang kami jual 100% merupakan barang baru, original, dan dilengkapi garansi resmi.</p>
+                <h4>Q: Bagaimana cara melakukan pemesanan?</h4>
+                <p>A: Pilih unit yang Anda inginkan pada katalog, lalu klik tombol "Pesan Sekarang". Sistem akan secara otomatis mengarahkan Anda ke WhatsApp admin kami untuk penyelesaian transaksi.</p>
+            `
+        };
+        function openModal(type) {
+            const modal = document.getElementById('infoModal');
+            const modalBody = document.getElementById('modalBody');
+            if (modalData[type]) {
+                modalBody.innerHTML = modalData[type];
+                modal.style.display = 'block';
+            }
+        }
+
+        function showProductDetail(model, img, desc, url) {
+            const modalBody = document.getElementById('modalBody');
+            const modal = document.getElementById('infoModal');
+            
+            const pesanWA = encodeURIComponent(`Halo Kost-net, saya tertarik dengan unit ${model}. Apakah unit ini ready?`);
+            const linkWA = `https://wa.me/${nomorWA}?text=${pesanWA}`;
+
+            modalBody.innerHTML = `
+                <div style="text-align: center;">
+                    <img src="${img || 'https://via.placeholder.com/200?text=Produk'}" style="max-height: 160px; width: auto; margin-bottom: 12px;">
+                    <h3 style="color: var(--primary-teal); margin-bottom: 10px;">${model}</h3>
+                </div>
+                <div style="background: #f8fafc; padding: 12px; border-radius: 8px; font-size: 13px; text-align: left; margin-bottom: 15px; border: 1px solid #e2e8f0;">
+                    <strong>Spesifikasi Utama:</strong><br><br>
+                    ${desc || 'Spesifikasi ringkas belum tersedia.'}
+                    ${url ? `<br><br><a href="${url}" target="_blank" rel="noopener noreferrer" style="color: #0284c7; font-weight: 600; text-decoration: underline; display: inline-block;">🌐 Lihat Spec Lengkap di Web Resmi →</a>` : ''}
+                </div>
+                <a href="${linkWA}" target="_blank" style="display: block; width: 100%; background: #25d366; color: white; text-align: center; padding: 12px; border-radius: 8px; font-weight: 600; text-decoration: none;">
+                    <i class="fab fa-whatsapp"></i> Tanya / Beli Unit Ini
+                </a>
+            `;
+            modal.style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('infoModal').style.display = 'none';
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('infoModal');
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        };
+
+        // SEARCH FUNCTION
+        function filterProducts() {
+    const input = document.getElementById('searchInput').value.toLowerCase();
+    const sections = document.querySelectorAll('.brand-section');
+    let totalVisible = 0;
+
+    sections.forEach(section => {
+        const cards = section.querySelectorAll('.card');
+        let visibleCount = 0;
+
+        cards.forEach(card => {
+            const title = card.querySelector('.card-model').innerText.toLowerCase();
+            if (title.includes(input)) {
+                card.style.display = "flex";
+                visibleCount++;
+            } else {
+                card.style.display = "none";
+            }
+        });
+
+        // Sembunyikan section brand jika tidak ada produk yang cocok
+        section.style.display = visibleCount > 0 ? "block" : "none";
+        totalVisible += visibleCount;
+    });
+
+    // Tampilkan / sembunyikan pesan "tidak ditemukan"
+    const notFound = document.getElementById('notFoundMessage');
+    if (notFound) {
+        notFound.style.display = totalVisible === 0 ? "block" : "none";
+    }
+}
+
+    </script>
+</body>
+</html>
